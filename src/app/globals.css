@@ -46,6 +46,10 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  --color-brand-deep: var(--brand-deep);
+  --color-brand-teal: var(--brand-teal);
+  --color-brand-midnight: var(--brand-midnight);
+  --color-brand-mint: var(--brand-mint);
 }
 
 :root {
@@ -81,6 +85,10 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --brand-deep: #065a82;
+  --brand-teal: #1c7293;
+  --brand-midnight: #0b1220;
+  --brand-mint: #5fd3c4;
 }
 
 .dark {
@@ -126,5 +134,6 @@
   }
   html {
     @apply font-sans;
+    scroll-behavior: smooth;
   }
 }

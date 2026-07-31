@@ -1,26 +1,25 @@
-import Link from "next/link";
-
 export default function Footer() {
   return (
-    <footer className="border-t">
-      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-6 py-10 md:flex-row">
+    <footer className="border-t border-slate-100 py-12">
+      <div className="mx-auto grid max-w-6xl gap-8 px-6 sm:grid-cols-3">
         <div>
-          <h3 className="text-2xl font-bold">StudyForge</h3>
-
-          <p className="mt-2 text-sm text-muted-foreground">
-            Study smarter with AI.
+          <p className="font-bold text-slate-900">StudyForge AI</p>
+          <p className="mt-2 text-sm text-slate-500">
+            © 2026 StudyForge AI. All rights reserved.
           </p>
         </div>
-
-        <div className="flex gap-8">
-          <Link href="#">Features</Link>
-          <Link href="#">How it Works</Link>
-          <Link href="#">FAQ</Link>
+        <div>
+          <p className="text-sm font-semibold text-slate-900">Product</p>
+          <ul className="mt-2 space-y-1 text-sm text-slate-500">
+            <li>Summarize</li>
+            <li>Quiz</li>
+            <li>Flashcards</li>
+          </ul>
         </div>
-
-        <p className="text-sm text-muted-foreground">
-          © 2026 StudyForge. All rights reserved.
-        </p>
+        <div>
+          <p className="text-sm font-semibold text-slate-900">Contact</p>
+          <p className="mt-2 text-sm text-slate-500">team@studyforge.ai</p>
+        </div>
       </div>
     </footer>
   );
