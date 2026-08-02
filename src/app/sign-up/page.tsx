@@ -3,12 +3,15 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { AlertCircle, Loader2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import PasswordInput from "@/components/auth/password-input";
 import AuthPanel from "@/components/auth/auth-panel";
 import BackLink from "@/components/ui/back-link";
+import Logo from "@/components/shared/logo";
 // import { MailCheck } from "lucide-react"; // TODO: re-enable when email confirmation is back on
 
 export default function SignUpPage() {
@@ -59,15 +62,15 @@ export default function SignUpPage() {
   //     <div className="flex min-h-screen">
   //       <AuthPanel />
   //       <div className="flex w-full flex-col items-center justify-center px-6 py-12 text-center md:w-1/2">
-  //         <div className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-teal/10">
-  //           <MailCheck className="h-7 w-7 text-brand-teal" />
+  //         <div className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-mauve/10">
+  //           <MailCheck className="h-7 w-7 text-brand-mauve" />
   //         </div>
-  //         <h1 className="mt-5 text-2xl font-bold text-slate-900">Check your email</h1>
-  //         <p className="mt-2 max-w-sm text-sm text-slate-500">
-  //           We sent a confirmation link to <span className="font-medium text-slate-700">{email}</span>.
+  //         <h1 className="mt-5 text-2xl font-bold text-brand-dark">Check your email</h1>
+  //         <p className="mt-2 max-w-sm text-sm text-brand-dark/60">
+  //           We sent a confirmation link to <span className="font-medium text-brand-dark">{email}</span>.
   //           Click it to activate your account.
   //         </p>
-  //         <Link href="/log-in" className="mt-6 text-sm font-medium text-brand-teal hover:underline">
+  //         <Link href="/log-in" className="mt-6 text-sm font-medium text-brand-mauve hover:underline">
   //           Back to log in
   //         </Link>
   //       </div>
@@ -76,29 +79,35 @@ export default function SignUpPage() {
   // }
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-brand-cream">
       <AuthPanel />
 
-      <div className="flex w-full flex-col justify-center px-6 py-12 md:w-1/2 md:px-16">
+      <div className="flex w-full flex-col justify-center px-6 py-10 sm:px-10 md:w-1/2 md:px-16">
         <div className="mx-auto w-full max-w-sm">
+          <div className="mb-8 flex items-center justify-between md:hidden">
+            <Logo />
+          </div>
+
           <BackLink href="/" label="Back to home" />
 
-          <h1 className="text-2xl font-bold text-slate-900">
+          <h1 className="text-3xl font-bold text-brand-dark">
             Create your account
           </h1>
-          <p className="mt-2 text-sm text-slate-500">
+          <p className="mt-2 text-sm text-brand-dark/60">
             Already have one?{" "}
             <Link
               href="/log-in"
-              className="font-medium text-brand-teal hover:underline"
+              className="font-medium text-brand-mauve hover:underline"
             >
               Log in
             </Link>
           </p>
 
           <form onSubmit={handleSubmit} className="mt-8 space-y-5">
-            <div className="space-y-2">
-              <Label htmlFor="fullName">Full name</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="fullName" className="text-brand-dark/80">
+                Full name
+              </Label>
               <Input
                 id="fullName"
                 value={fullName}
@@ -108,8 +117,10 @@ export default function SignUpPage() {
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="email" className="text-brand-dark/80">
+                Email
+              </Label>
               <Input
                 id="email"
                 type="email"
@@ -120,11 +131,12 @@ export default function SignUpPage() {
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
+            <div className="space-y-1.5">
+              <Label htmlFor="password" className="text-brand-dark/80">
+                Password
+              </Label>
+              <PasswordInput
                 id="password"
-                type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="At least 6 characters"
@@ -132,14 +144,27 @@ export default function SignUpPage() {
               />
             </div>
 
-            {error && <p className="text-sm text-destructive">{error}</p>}
+            {error && (
+              <div className="flex items-start gap-2 rounded-xl bg-red-50 px-3.5 py-3 text-sm text-red-700">
+                <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+                <span>{error}</span>
+              </div>
+            )}
 
             <Button
               type="submit"
               disabled={loading}
-              className="w-full bg-brand-teal hover:bg-brand-teal/90"
+              size="lg"
+              className="w-full"
             >
-              {loading ? "Creating account..." : "Create account"}
+              {loading ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" /> Creating
+                  account...
+                </>
+              ) : (
+                "Create account"
+              )}
             </Button>
           </form>
         </div>

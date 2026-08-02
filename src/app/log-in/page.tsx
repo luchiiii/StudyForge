@@ -1,18 +1,23 @@
 "use client";
 
 import Link from "next/link";
-import BackLink from "@/components/ui/back-link";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import PasswordInput from "@/components/auth/password-input";
 import AuthPanel from "@/components/auth/auth-panel";
+import BackLink from "@/components/ui/back-link";
+import Logo from "@/components/shared/logo";
 
-export default function LogInPage() {
+function LogInForm() {
   const router = useRouter();
   const supabase = createClient();
+  const searchParams = useSearchParams();
+  const justSignedUp = searchParams.get("justSignedUp") === "true";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -39,59 +44,88 @@ export default function LogInPage() {
   }
 
   return (
-    <div className="flex min-h-screen">
-      <AuthPanel />
+    <div className="mx-auto w-full max-w-sm">
+      <div className="mb-8 flex items-center justify-between md:hidden">
+        <Logo />
+      </div>
 
-      <div className="flex w-full flex-col justify-center px-6 py-12 md:w-1/2 md:px-16">
-        <div className="mx-auto w-full max-w-sm">
-          <BackLink href="/" label="Back to home" />
-          <h1 className="text-2xl font-bold text-slate-900">Welcome back</h1>
-          <p className="mt-2 text-sm text-slate-500">
-            Don&apos;t have an account?{" "}
-            <Link
-              href="/sign-up"
-              className="font-medium text-brand-teal hover:underline"
-            >
-              Sign up
-            </Link>
-          </p>
+      <BackLink href="/" label="Back to home" />
 
-          <form onSubmit={handleSubmit} className="mt-8 space-y-5">
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.com"
-                required
-              />
-            </div>
+      <h1 className="text-3xl font-bold text-brand-dark">Welcome back</h1>
+      <p className="mt-2 text-sm text-brand-dark/60">
+        Don&apos;t have an account?{" "}
+        <Link
+          href="/sign-up"
+          className="font-medium text-brand-mauve hover:underline"
+        >
+          Sign up
+        </Link>
+      </p>
 
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Your password"
-                required
-              />
-            </div>
-
-            {error && <p className="text-sm text-destructive">{error}</p>}
-
-            <Button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-brand-teal hover:bg-brand-teal/90"
-            >
-              {loading ? "Logging in..." : "Log in"}
-            </Button>
-          </form>
+      {justSignedUp && (
+        <div className="mt-4 flex items-center gap-2 rounded-xl bg-brand-mauve/10 px-3.5 py-3 text-sm text-brand-mauve">
+          <CheckCircle2 className="h-4 w-4 shrink-0" />
+          <span>Account created, log in to continue.</span>
         </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+        <div className="space-y-1.5">
+          <Label htmlFor="email" className="text-brand-dark/80">
+            Email
+          </Label>
+          <Input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="you@example.com"
+            required
+          />
+        </div>
+
+        <div className="space-y-1.5">
+          <Label htmlFor="password" className="text-brand-dark/80">
+            Password
+          </Label>
+          <PasswordInput
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Your password"
+            required
+          />
+        </div>
+
+        {error && (
+          <div className="flex items-start gap-2 rounded-xl bg-red-50 px-3.5 py-3 text-sm text-red-700">
+            <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+            <span>{error}</span>
+          </div>
+        )}
+
+        <Button type="submit" disabled={loading} size="lg" className="w-full">
+          {loading ? (
+            <>
+              <Loader2 className="h-4 w-4 animate-spin" /> Logging in...
+            </>
+          ) : (
+            "Log in"
+          )}
+        </Button>
+      </form>
+    </div>
+  );
+}
+
+export default function LogInPage() {
+  return (
+    <div className="flex min-h-screen bg-brand-cream">
+      <AuthPanel />
+      <div className="flex w-full flex-col justify-center px-6 py-10 sm:px-10 md:w-1/2 md:px-16">
+        <Suspense fallback={null}>
+          <LogInForm />
+        </Suspense>
       </div>
     </div>
   );

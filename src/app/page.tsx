@@ -1,6 +1,8 @@
 import Navbar from "@/components/landing/Navbar";
 import Hero from "@/components/landing/Hero";
 import AlternatingSection from "@/components/landing/AlternatingSection";
+import SummaryMockup from "@/components/landing/mockup/summary-mockup";
+import QuizMockup from "@/components/landing/mockup/quiz-mockup";
 import FeatureTabs from "@/components/landing/FeatureTabs";
 import Testimonials from "@/components/landing/Testimonials";
 import FeatureGrid from "@/components/landing/FeatureGrid";
@@ -18,12 +20,14 @@ export default function LandingPage() {
         heading="Get your study time back."
         body="StudyForge reads your lecture notes and pulls out what actually matters. No more re-reading 50 pages before you can even start revising."
         reverse={false}
+        visual={<SummaryMockup />}
       />
       <AlternatingSection
         eyebrow="Grounded in your material"
         heading="More personalized than a generic study guide."
         body="Every summary, quiz, and flashcard is generated from your own uploaded notes, not from the internet. If it's not in your notes, it's not in your quiz."
         reverse={true}
+        visual={<QuizMockup />}
       />
       <FeatureTabs />
       <Testimonials />

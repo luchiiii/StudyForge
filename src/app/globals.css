@@ -50,6 +50,9 @@
   --color-brand-teal: var(--brand-teal);
   --color-brand-midnight: var(--brand-midnight);
   --color-brand-mint: var(--brand-mint);
+  --color-brand-dark: var(--brand-dark);
+--color-brand-cream: var(--brand-cream);
+--color-brand-mauve: var(--brand-mauve);
 }
 
 :root {
@@ -89,6 +92,9 @@
   --brand-teal: #1c7293;
   --brand-midnight: #0b1220;
   --brand-mint: #5fd3c4;
+  --brand-dark: #291210;
+--brand-cream: #f3eae4;
+--brand-mauve: #89676a;
 }
 
 .dark {
@@ -136,4 +142,9 @@
     @apply font-sans;
     scroll-behavior: smooth;
   }
+}
+
+@keyframes loading {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(400%); }
 }

@@ -1,4 +1,5 @@
-import Link from "next/link";
+
+import Logo from "@/components/shared/logo";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import SignOutButton from "@/components/dashboard/sign-out-button";
@@ -16,15 +17,10 @@ export default async function DashboardLayout({
   if (!user) redirect("/log-in");
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <header className="border-b border-slate-100 bg-white">
+    <div className="min-h-screen bg-brand-cream">
+      <header className="border-b border-brand-dark/5 bg-white/60 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link
-            href="/dashboard"
-            className="text-lg font-bold tracking-tight text-slate-900"
-          >
-            StudyForge<span className="text-brand-teal">AI</span>
-          </Link>
+          <Logo />
           <div className="flex items-center gap-4">
             <span className="text-sm text-slate-500">{user.email}</span>
             <SignOutButton />

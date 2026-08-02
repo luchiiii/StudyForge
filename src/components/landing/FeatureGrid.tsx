@@ -31,17 +31,17 @@ const features = [
 
 export default function FeatureGrid() {
   return (
-    <section id="how-it-works" className="bg-slate-50 py-24">
+    <section id="how-it-works" className="bg-brand-cream py-24">
       <div className="mx-auto max-w-6xl px-6">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {features.map((f, i) => (
             <Reveal key={f.title} delay={i * 0.08}>
-              <div className="h-full rounded-2xl bg-white p-6 ring-1 ring-slate-100 transition hover:-translate-y-1 hover:shadow-lg">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-teal/10">
-                  <f.icon className="h-5 w-5 text-brand-teal" />
+              <div className="h-full rounded-2xl bg-white p-6 ring-1 ring-brand-dark/5 transition hover:-translate-y-1 hover:shadow-lg">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-mauve/10">
+                  <f.icon className="h-5 w-5 text-brand-mauve" />
                 </div>
-                <h3 className="mt-4 font-bold text-slate-900">{f.title}</h3>
-                <p className="mt-2 text-sm text-slate-600">{f.body}</p>
+                <h3 className="mt-4 font-bold text-brand-dark">{f.title}</h3>
+                <p className="mt-2 text-sm text-brand-dark/60">{f.body}</p>
               </div>
             </Reveal>
           ))}

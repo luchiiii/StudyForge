@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Logo from "@/components/shared/logo";
 
 const links = [
   { label: "Product", href: "#product" },
@@ -15,21 +16,16 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-100 bg-white/90 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-brand-dark/5 bg-brand-cream/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Link
-          href="/"
-          className="text-lg font-bold tracking-tight text-slate-900"
-        >
-          StudyForge<span className="text-teal-600">AI</span>
-        </Link>
+        <Logo />
 
         <nav className="hidden items-center gap-8 md:flex">
           {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className="text-sm font-medium text-slate-600 transition hover:text-slate-900"
+              className="text-sm font-medium text-brand-dark/70 transition hover:text-brand-dark"
             >
               {l.label}
             </Link>
@@ -43,7 +39,7 @@ export default function Navbar() {
         </div>
 
         <button
-          className="md:hidden"
+          className="md:hidden text-brand-dark"
           onClick={() => setOpen((v) => !v)}
           aria-label="Toggle menu"
         >
@@ -52,13 +48,13 @@ export default function Navbar() {
       </div>
 
       {open && (
-        <div className="border-t border-slate-100 px-6 py-4 md:hidden">
+        <div className="border-t border-brand-dark/5 px-6 py-4 md:hidden">
           <nav className="flex flex-col gap-4">
             {links.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
-                className="text-sm font-medium text-slate-700"
+                className="text-sm font-medium text-brand-dark/70"
               >
                 {l.label}
               </Link>

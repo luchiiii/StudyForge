@@ -15,7 +15,12 @@ export default function SignOutButton() {
   }
 
   return (
-    <Button variant="outline" size="sm" onClick={handleSignOut}>
+    <Button
+      variant="outline"
+      size="sm"
+      onClick={handleSignOut}
+      className="rounded-full border-brand-dark/15 text-brand-dark hover:bg-brand-dark hover:text-brand-cream"
+    >
       Sign out
     </Button>
   );

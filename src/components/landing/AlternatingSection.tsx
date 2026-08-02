@@ -1,11 +1,11 @@
 import Reveal from "./reveal";
-import { Sparkles } from "lucide-react";
 
 interface Props {
   eyebrow: string;
   heading: string;
   body: string;
   reverse?: boolean;
+  visual: React.ReactNode;
 }
 
 export default function AlternatingSection({
@@ -13,6 +13,7 @@ export default function AlternatingSection({
   heading,
   body,
   reverse,
+  visual,
 }: Props) {
   return (
     <section className="mx-auto max-w-6xl px-6 py-20">
@@ -20,17 +21,15 @@ export default function AlternatingSection({
         <div
           className={`flex flex-col items-center gap-12 md:flex-row ${reverse ? "md:flex-row-reverse" : ""}`}
         >
-          <div className="flex h-72 w-full flex-1 items-center justify-center rounded-3xl bg-gradient-to-br from-brand-teal/10 via-white to-brand-mint/10 ring-1 ring-slate-100">
-            <Sparkles className="h-12 w-12 text-brand-teal/40" />
-          </div>
+          <div className="w-full flex-1">{visual}</div>
           <div className="flex-1">
-            <p className="text-sm font-semibold uppercase tracking-wide text-brand-teal">
+            <p className="text-sm font-semibold uppercase tracking-wide text-brand-mauve">
               {eyebrow}
             </p>
-            <h2 className="mt-2 text-3xl font-bold text-slate-900">
+            <h2 className="mt-2 text-3xl font-bold text-brand-dark">
               {heading}
             </h2>
-            <p className="mt-4 text-base text-slate-600">{body}</p>
+            <p className="mt-4 text-base text-brand-dark/70">{body}</p>
           </div>
         </div>
       </Reveal>
