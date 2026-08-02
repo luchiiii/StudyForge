@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { AlertCircle, Loader2 } from "lucide-react";
+import { MailCheck, AlertCircle, Loader2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,10 +11,8 @@ import PasswordInput from "@/components/auth/password-input";
 import AuthPanel from "@/components/auth/auth-panel";
 import BackLink from "@/components/ui/back-link";
 import Logo from "@/components/shared/logo";
-// import { MailCheck } from "lucide-react"; // TODO: re-enable when email confirmation is back on
 
 export default function SignUpPage() {
-  const router = useRouter();
   const supabase = createClient();
 
   const [fullName, setFullName] = useState("");
@@ -23,7 +20,7 @@ export default function SignUpPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  // const [submitted, setSubmitted] = useState(false); // TODO: re-enable when email confirmation is back on
+  const [submitted, setSubmitted] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -47,36 +44,35 @@ export default function SignUpPage() {
       return;
     }
 
-    // TEMP: email confirmation is disabled in Supabase right now, so the user
-    // is already signed in immediately after signUp — go straight to dashboard.
-    router.push("/dashboard");
-
-    // TODO: when confirm email is turned back ON, remove the line above
-    // and uncomment the block below instead:
-    // setSubmitted(true);
+    setSubmitted(true);
   }
 
-  // TODO: re-enable this whole block when email confirmation is back on
-  // if (submitted) {
-  //   return (
-  //     <div className="flex min-h-screen">
-  //       <AuthPanel />
-  //       <div className="flex w-full flex-col items-center justify-center px-6 py-12 text-center md:w-1/2">
-  //         <div className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-mauve/10">
-  //           <MailCheck className="h-7 w-7 text-brand-mauve" />
-  //         </div>
-  //         <h1 className="mt-5 text-2xl font-bold text-brand-dark">Check your email</h1>
-  //         <p className="mt-2 max-w-sm text-sm text-brand-dark/60">
-  //           We sent a confirmation link to <span className="font-medium text-brand-dark">{email}</span>.
-  //           Click it to activate your account.
-  //         </p>
-  //         <Link href="/log-in" className="mt-6 text-sm font-medium text-brand-mauve hover:underline">
-  //           Back to log in
-  //         </Link>
-  //       </div>
-  //     </div>
-  //   );
-  // }
+  if (submitted) {
+    return (
+      <div className="flex min-h-screen bg-brand-cream">
+        <AuthPanel />
+        <div className="flex w-full flex-col items-center justify-center px-6 py-12 text-center md:w-1/2">
+          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-mauve/10">
+            <MailCheck className="h-7 w-7 text-brand-mauve" />
+          </div>
+          <h1 className="mt-5 text-2xl font-bold text-brand-dark">
+            Check your email
+          </h1>
+          <p className="mt-2 max-w-sm text-sm text-brand-dark/60">
+            We sent a confirmation link to{" "}
+            <span className="font-medium text-brand-dark">{email}</span>. Click
+            it to activate your account.
+          </p>
+          <Link
+            href="/log-in"
+            className="mt-6 text-sm font-medium text-brand-mauve hover:underline"
+          >
+            Back to log in
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-screen bg-brand-cream">
